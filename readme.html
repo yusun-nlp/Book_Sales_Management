@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataBase_Middle</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="图书销售管理系统">图书销售管理系统</h1>
+<p>孙瑜 17307130312</p>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D">项目介绍</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E">使用说明</a>
+<ul>
+<li><a href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">环境配置</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E6%96%B9%E6%B3%95">运行方法</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD">实现功能</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86">文件管理</a></li>
+</ul>
+<p><a></a></p>
+<h2 id="项目介绍">项目介绍</h2>
+<p>*“图书销售管理系统”是2019年“数据库引论”的中期实验。<br></p>
+<p>本文主要对该实验项目的运行环境、运行方法、实现功能、文件管理进行简要阐述。</p>
+<p><a></a></p>
+<h2 id="使用说明">使用说明</h2>
+<p><a></a></p>
+<h3 id="环境配置">环境配置</h3>
+<ul>
+<li>操作系统：Windows 10，64位</li>
+<li>数据库管理软件：SQL Server 2017</li>
+<li>编程语言：JAVA（JDBC）</li>
+<li>运行环境：eclipse EE + Tomcat</li>
+</ul>
+<p><a></a></p>
+<h3 id="运行方法">运行方法</h3>
+<ol>
+<li>安装eclipse和Tomcat</li>
+</ol>
+<p>要实现本实验项目，首先需要先配置JDK，将其添加到环境变量中，然后可以在控制台查看java的版本，表示安装成功。</p>
+<pre><code> jar包：sqljdbc42.jar ——jre8
+ eclipse版本：Version: 2019-03 (4.11.0)
+</code></pre>
+<p>接下来需要安装tomcat，并将tomcat添加到eclipse ee中。</p>
+<pre><code>Tomcat版本：v9.0
+</code></pre>
+<ol start="2">
+<li>添加项目</li>
+</ol>
+<p>将项目文件libraryweb放到eclipse ee的文件夹下，刷新eclipse中的Project Explorer，发现项目文件夹成功添加。</p>
+<ol start="3">
+<li>运行jsp文件</li>
+</ol>
+<p>在eclipse中打开libraryweb，再打开其中的WebContent，在其中找到welcome.jsp，右键单击run as→run on server，即可进入该系统的欢迎界面——登录界面。</p>
+<p><a></a></p>
+<h3 id="实现功能">实现功能</h3>
+<pre><code>所有功能界面均通过页面左端的菜单点击操作
+</code></pre>
+<ul>
+<li>用户管理</li>
+</ul>
+<pre><code>Account——Create Account/Account List
+Logout
+</code></pre>
+<pre><code>超级管理员：UserID：17307130312 Password：sunyu1999
+普通管理员：UserID：17307130301 Password：sunyu1999
+</code></pre>
+<p><strong>welcome.jsp</strong>界面管理员需要登录才可以进行相关操作。又由于超级管理员是建表时即存在的，所以在此不设置注册键。用户输入用户名和密码后系统会自动判断身份并进行跳转。登录失败会回到这个界面并弹出警告框，提示用户名或密码错误。</p>
+<p><strong>SuperAD.jsp</strong>和<strong>NormalAD.jsp</strong>分别为超级管理员和普通管理员的欢迎界面，除了正文说明部分的Account内容不同外，其余设置均相同。由于只有Account有关的操作权限不同，所以我在Account部分也设置了一个用户权限申请界面。系统会根据用户类型分别跳转到不同用户清单。请求权限失败会回到这个界面并弹出警告框，提示用户名或密码错误。</p>
+<p>当系统认定为超级用户后，会自动跳转到所有用户信息清单界面<strong>Account_List.jsp</strong>，可以看到右边的Account按钮出现了下拉菜单，打开后可以切换到创建普通管理员界面<strong>Create_Account.jsp</strong>，创建成功会重新跳转回账户清单，并弹出创建成功的消息；如果UserID已经存在则会创建失败，会跳转回当前界面并弹出警告信息。</p>
+<p>在用户清单界面可以根据UserID、姓名、ID查找用户信息<strong>Search_Account.jsp</strong>，均要求完全匹配。也可以对任意账户进行修改<strong>Edit_Account.jsp</strong>及删除操作，修改或删除成功后也会返回用户清单界面。</p>
+<p>当系统认定为普通用户后，会自动跳转到当前用户对应的账户信息<strong>Normal_Account.jsp</strong>。普通管理员只可以对自己的信息进行查看和修改<strong>Edit_Accoutn_N.jsp</strong>，如果修改成功则自动跳转回只有自己信息的界面。</p>
+<ul>
+<li>图书管理</li>
+</ul>
+<pre><code>Book
+</code></pre>
+<p><strong>Book_List.jsp</strong>可以查看全部库存书籍的信息（对应），可以在右上角查找对应ISBN号、书名、出版社、作者的书籍（对应Search_Book.jsp），除了ISBN要求完全匹配外，其余三个查找项均为模糊搜索（比如如果搜索数学，则所有名称含有数学的书籍都会显示出来）。同时<strong>Edit_Book.jsp</strong>可以选择任意一个书籍数据对其进行修改，修改成功后会返回书籍清单界面。</p>
+<ul>
+<li>进货管理</li>
+</ul>
+<pre><code>Order——Check in/Pay/Order List
+</code></pre>
+<p><strong>Check_In.jsp</strong>可以搜索想要进货的书籍的ISBN号。如果进货书籍已经存在，则会显示出书籍信息<strong>Check_In_Old.jsp</strong>，用户只需要输入对应的订单编号、订单数量、进货价格即可。若果进货书籍不存在，则需要用户输入全部的书籍信息<strong>Check_In_New.jsp</strong>，并弹出提示信息说明进货新书。进货成功后，系统会自动跳转到支付界面。</p>
+<p>支付界面<strong>Payment.jsp</strong>中会显示出状态为未付款的订单，并且，在这个界面，用户可以支付或者取消订单，结束后会自动跳转到订单界面。与此同时，支付界面的该条信息会删除。如果成功支付，书库中对应会增加对应书目的库存量或者增加对应书目的数据，账单中也会增加一条支出信息。</p>
+<p>订单界面<strong>Order_List.jsp</strong>可以看到全部的订单信息，包括已经成功完成的、未支付的以及取消的，而且每个订单都有对应的创建时间。</p>
+<ul>
+<li>销售管理</li>
+</ul>
+<pre><code>Sale——Sale out/Deal List
+</code></pre>
+<p><strong>Sale.jsp</strong>可以搜索销售的书籍的ISBN号。如果销售书籍存在，则会显示出书籍信息<strong>Sales_Confirm.jsp</strong>，用户只需要输入对应的交易编号、订单数量即可。若果销售书籍不存在，则会跳转到进货界面，并弹出提示信息说明书籍不存在。用户可根据需求进行进货。销售成功后，系统会自动在交易表中加入一条数据，并且跳转到交易清单界面。与此同时，书籍库中对应ISBN号的书籍也会减少相应数量的库存，当减少至0时会删除该书籍，如果销售数量多于库存量则不会购买，但是会跳转到进货界面，并弹出警告，用户可根据需求进货。</p>
+<p>交易清单界面<strong>Deal_List.jsp</strong>可以看到全部销售记录，包括销售时间。</p>
+<ul>
+<li>账单管理</li>
+</ul>
+<pre><code>Bill
+</code></pre>
+<p><strong>Bill_List.jsp</strong>可以查看全部的账单，不需要手动添加，在进货或者销售界面完成操作后后台会自动添加记录。进货账单状态为out（支出），销售账单状态为in（收入），同时记录了账单完成时间。</p>
+<p><a></a></p>
+<h2 id="文件管理">文件管理</h2>
+<p>jsp可视界面已经体现在上述实现功能部分。注意有一些jsp界面不可以直接运行，需要获取servlet传入的数据后才会可视化展现界面或者发生跳转，所以建议每次从welcome界面进入。</p>
+</div>
+</body>
+
+</html>
